@@ -6,7 +6,7 @@ Mode 1 normal lampe
 Mode 2 lys dæmper 
 Mode 3 blinke
 
-#2 Når den er i mode 1 skal leden på arduinoen konstant værer tænkt
+#2 Når den er i mode 1 skal leden på arduinoen konstant værer tændt
 #3 Når den er i mode 2 skal leden på arduinoen konstant gå op og ned i lysstyrke
 #4 Når den er i mode 3 skal leden på arduinoen konstant blinke med 1 hz 
 (500ms slukket og 500ms tænt)
