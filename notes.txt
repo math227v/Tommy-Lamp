@@ -1,0 +1,20 @@
+Fan pin = 6 //High to turn on
+Main led pin = 5 //High to turn on or use PWM
+Potentimeter pin = A1 //0 to 5 volt
+Toggle switch = 1 //HIGH or LOW
+Main Switch = A5 //HIGH or LOW
+
+Krav:
+#1 Der skal være to modes og man skal kunne skifte imellem de to modes med (Toggle switch): 
+Mode 1 skal der bruges PWM til at styre (Main led) og man skal kunne slukke (Main led) med (Main switch) 
+Mode 2 Lampen skal bare kunne bruges som en normal lampe hvor den enten er tændt eller slukket. Du skal bruge (Main switch) til at tende og slukke (Main led)
+
+#2 Når man er i mode 1 og (Main led) er tændt skal led'en på arduinoen blinke med 1 hz (Altså 500ms slukket, 500ms tændt)
+#3 Når man er i mode 2 og (Main led) er tændt skal led'en på arduinoen lyse constant
+#4 Når (Main led) er tændt skal (Fan) tændes og når (Main led) er slukket skal (Fan) Slukket
+#5 Du skal kommentere hele koden
+#5 Man skal nemt kunne ændre ændre hvilke pins de forskelige dele bruger (Ud over den led der er på arduinoen)
+
+Du får fuld adgang til Lampen under hele prøven
+
+Min kode brger 1888 Bytes på arduinoen (Ifølge arduino Ide)

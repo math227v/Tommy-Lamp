@@ -1,0 +1,19 @@
+#1 Der skal være 3 modes og man skal kunne skifte mellem alle modes med (toggle switch). 
+Hver gang at (Toggle switch) er low skal den virke som en normal lomme lygte og hver 
+gang at den bliver high skal den skifte imellem lys dæmpning og lys blinke.
+
+Mode 1 normal lampe 
+Mode 2 lys dæmper 
+Mode 3 blinke
+
+#2 Når den er i mode 1 skal leden på arduinoen konstant værer tænkt
+#3 Når den er i mode 2 skal leden på arduinoen konstant gå op og ned i lysstyrke
+#4 Når den er i mode 3 skal leden på arduinoen konstant blinke med 1 hz 
+(500ms slukket og 500ms tænt)
+
+#5 når den er i mode 1 skal den kun kunne tænde
+#6 når den er i mode 2 skal den kun kunne tænde og slukke lyst og dæmpe lyset 
+#7 når den er i mode 3 skal den beholde den samme lysstyrke som i mode 2 
+men man skal kunne justere hvor hurtigt den blinker
+
+Ring til mig hvis du har spørgsmål
