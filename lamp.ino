@@ -1,8 +1,8 @@
 #define FAN_PIN 6
 #define LED_SIG_PIN 5
 #define POT_PIN 15 // A0, A1, A2 = 14, 15, 16
-#define MODE_SWITCH_PIN 19
-#define MAIN_SWITCH_PIN 1
+#define MODE_SWITCH_PIN 1
+#define MAIN_SWITCH_PIN 19
 #define STATUS_LED_PIN 13
 
 #define NUMBER_OF_PINS 6
@@ -58,18 +58,22 @@ void loop() {
 		case 2:
 			// digitalWrite(LED_SIG_PIN, HIGH);
 			controlLED( 255 );
+			digitalWrite( STATUS_LED_PIN, HIGH );
 			break;
 
 		// Fade Mode		
 		case 1:
 			fadeVal = analogRead(POT_PIN) / 4;
 			controlLED( fadeVal );
+			blinkPin( STATUS_LED_PIN );
+			// analogWrite( STATUS_LED_PIN, fadeVal );
 			break;
 		
 		// Blink Mode
 		case 3:
 			blinkInterval = analogRead( POT_PIN );
 			blinkLED( blinkInterval, fadeVal );
+			blinkStatus( blinkInterval, 0x1 );
 			break;	
 
 		default:
@@ -77,11 +81,12 @@ void loop() {
 			break;
 	}
 
-	digitalWrite( STATUS_LED_PIN, digitalRead(MAIN_SWITCH_PIN) );
+	digitalWrite( FAN_PIN, digitalRead(MAIN_SWITCH_PIN) );
 };
 
 void blinkPin(uint8_t pin) {
-	if ((millis() % 1000) < 500) digitalWrite(pin, HIGH);
+	long deltaTime = millis() % 1000;
+	if ( (deltaTime < 100) || (( 200 < deltaTime ) && ( deltaTime < 300 )) ) digitalWrite(pin, HIGH);
 	else digitalWrite(pin, LOW);
 }
 
@@ -107,7 +112,24 @@ void blinkLED( uint16_t totalInterval, uint8_t powerLevel ) {
 	}
 }
 
-void blockPin(uint8_t pin) { digitalWrite(pin, LOW); }
+void blinkStatus( uint16_t totalInterval, uint8_t powerLevel ) {
+	// If the input deviates more than 25 from the current value, update it.
+	// Prevents jumpy values
+	if ( abs( totalInterval - smoothedInterval ) > 25 ) smoothedInterval = totalInterval;
+
+	#define MIN_BLINK_PERIOD 30
+	#define MAX_BLINK_PERIOD 1000
+
+	uint16_t mappedInterval = map( smoothedInterval, 0, 1023, MIN_BLINK_PERIOD, MAX_BLINK_PERIOD );
+	uint16_t deltaTime = millis() - lastBlink;
+
+	if ( deltaTime < ( mappedInterval / 2 )) digitalWrite( STATUS_LED_PIN, powerLevel );
+	else {
+		digitalWrite( STATUS_LED_PIN, 0x0 );
+		if ( deltaTime >= mappedInterval ) lastBlink = millis();
+	}
+}
+
 
 void controlLED(uint16_t amount) {
 	if (digitalRead(MAIN_SWITCH_PIN) == HIGH) {
